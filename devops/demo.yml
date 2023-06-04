@@ -12,14 +12,14 @@ Description:  This template deploys a VPC in either us-east1 or us-west-2, with 
 Parameters:
   Ec2InstanceKeyName:
     Description: EC2 SSH KEY
-    Type: AWS::SSM::Parameter::Value<String>
-    Default: "/sam/ec2/keypair/LINUX"
+    Type: String
+    Default: naveen-key
     ConstraintDescription: Must be a you have Key
 
   EC2AMI:
     Description: AMI ID
-    Type: AWS::SSM::Parameter::Value<String>
-    Default: "/sam/ec2/AMI"
+    Type: String
+    Default: ami-053b0d53c279acc90
     ConstraintDescription: Must be a you have AMI 
 
 
