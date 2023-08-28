@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+
+    environment {
+        AWS_REGION = 'us-east-1'  // Specify the AWS region
+        STACK_NAME = 'DEMO'  // Specify the CloudFormation stack name
+        TEMPLATE_FILE = 'devops/demo.yml'  // Specify the CloudFormation template file
+      //  PARAMETER_FILE = 'parameters.json'  // Specify the CloudFormation parameter file
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/naveen4644/cloudformation.git'
+            }
+        }
+
+        
+        stage('Delete Stack') {
+            steps {
+                script {
+                       input message: "Do you want to delete the CloudFormation stack?", ok: "Delete"
+                        try {
+                            sh "aws cloudformation delete-stack --stack-name ${STACK_NAME}"
+                            sh "aws cloudformation wait stack-delete-complete --stack-name ${STACK_NAME}"
+                        } catch (Exception e) {
+                            echo "Stack deletion failed or does not exist: ${e.message}"
+                        }
+                    }
+            }
+        }
+    }
+}
