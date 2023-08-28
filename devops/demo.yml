@@ -225,7 +225,7 @@ Outputs:
     Description: Information about the EC2 instance
     Value: !Sub |
       InstanceId: ${EC2Instance}
-      InstancePublicIp: !GetAtt EC2Instance.PublicIp
-      InstancePrivateIp: !GetAtt EC2Instance.PrivateIp
+      InstanceId2: ${EC2Instance1}
+      
     Export:
       Name: !Sub "${AWS::StackName}-EC2InstanceDetails"
