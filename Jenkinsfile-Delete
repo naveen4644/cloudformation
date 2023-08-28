@@ -15,6 +15,31 @@ pipeline {
             }
         }
 
+        stages {
+        stage('Get EC2 Instance ID') {
+            steps {
+                script {
+
+                    def instanceId
+                    
+                    // Get the stack description from CloudFormation
+                    def stackDescription = sh(
+                        returnStdout: true,
+                        script: "aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${AWS_REGION}"
+                    ).trim()
+                    
+                    // Extract the instance ID from the stack description
+                    instanceId = stackDescription =~ /InstanceId: (i-[a-zA-Z0-9]+)/
+                    if (instanceId) {
+                        instanceId = instanceId[0][1]
+                        // Disable termination protection for the instance
+                        sh "aws ec2 modify-instance-attribute --instance-id $instanceId --no-disable-api-termination"
+                    } else {
+                        error("Instance ID not found in CloudFormation output.")
+                    }
+                }
+            }
+        }
         
         stage('Delete Stack') {
             steps {
@@ -30,4 +55,5 @@ pipeline {
             }
         }
     }
+}
 }
