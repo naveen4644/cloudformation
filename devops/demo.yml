@@ -218,10 +218,14 @@ Resources:
               Values:
                 - !Sub ${Project}-${EC2TagName}-ec24
 
+
 Outputs:
   EC2InstanceDetails:
     Description: Information about the EC2 instance
     Value:
       InstanceId: !Ref EC2Instance
       InstancePublicIp: !GetAtt EC2Instance.PublicIp
-      Instance
+      InstancePrivateIp: !GetAtt EC2Instance.PrivateIp
+    Export:
+      Name: !Sub "${AWS::StackName}-EC2InstanceDetails"
+
