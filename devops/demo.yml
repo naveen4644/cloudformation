@@ -183,9 +183,7 @@ Resources:
       KeyName: !Ref Ec2InstanceKeyName
       SecurityGroupIds: 
         - !Ref WebServerSecurityGroup
-      Tags:
-       - Key: Name
-         Value: !Sub ${Project}-${EC2TagName}-ec24
+
 
   EC2Instance1:
     Type: AWS::EC2::Instance
@@ -197,26 +195,8 @@ Resources:
       KeyName: !Ref Ec2InstanceKeyName
       SecurityGroupIds: 
         - !Ref WebServerSecurityGroup
-      Tags:
-       - Key: Name
-         Value: !Sub ${Project}-${EC2TagName}-ec24
 
-  ResourceGroup:
-    Type: "AWS::ResourceGroups::Group"
-    Properties:
-      Name: !Sub ${Project}-${EC2TagName}-RG
-      Description: "Resource group to add ec2"
-      ResourceQuery:
-        Type: 
-          "TAG_FILTERS_1_0"
-        Query:
-          ResourceTypeFilters:
-            - "AWS::EC2::Instance"
-          TagFilters:
-            -
-              Key: Name
-              Values:
-                - !Sub ${Project}-${EC2TagName}-ec24
+
 
 
 
