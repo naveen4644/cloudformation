@@ -187,8 +187,8 @@ Outputs:
   EC2InstanceDetails:
     Description: Information about the EC2 instance
     Value: !Sub |
-      InstanceId: ${EC2Instance}
-      InstanceId2: ${EC2Instance1}
+      InstanceId: ${EC2Instance2}
+      InstanceId2: ${EC2Instance3}
       
     Export:
       Name: !Sub "${AWS::StackName}-EC2InstanceDetails"
