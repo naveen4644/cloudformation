@@ -156,7 +156,7 @@ Resources:
       VpcId: !Ref VPC 
 
 
-  EC2Instance:
+  EC2Instance3:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref EC2AMI
@@ -168,7 +168,7 @@ Resources:
         - !Ref WebServerSecurityGroup
 
 
-  EC2Instance1:
+  EC2Instance2:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref EC2AMI
