@@ -23,7 +23,7 @@ pipeline {
                     def s3Bucket = sh(script: "aws ssm get-parameter --name ${ssmParamName} --query Parameter.Value --output text", returnStdout: true).trim()
                     echo "Retrieved S3 Bucket: ${s3Bucket}"
                     
-                    sh 'aws cloudformation deploy --template-file ${TEMPLATE_FILE} --stack-name ${s3Bucket} --capabilities CAPABILITY_IAM --region ${AWS_REGION}'
+                    sh 'aws cloudformation deploy --template-file ${TEMPLATE_FILE} --stack-name '${s3Bucket}' --capabilities CAPABILITY_IAM --region ${AWS_REGION}'
                 }
             }
         }
