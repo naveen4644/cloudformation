@@ -19,7 +19,9 @@ pipeline {
             steps {
                 script {
                     // Deploy CloudFormation stack
-                    sh 'aws cloudformation deploy --template-file ${TEMPLATE_FILE} --stack-name ${STACK_NAME} --capabilities CAPABILITY_IAM --region ${AWS_REGION}'
+                    def ssmParamName = '/desamist/aws/account/ENV' // Update with your parameter name
+                    def s3Bucket = sh(script: "aws ssm get-parameter --name ${ssmParamName} --query Parameter.Value --output text", returnStdout: true).trim()
+                    sh 'aws cloudformation deploy --template-file ${TEMPLATE_FILE} --stack-name ${s3Bucket} --capabilities CAPABILITY_IAM --region ${AWS_REGION}'
                 }
             }
         }
